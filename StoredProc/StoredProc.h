@@ -399,6 +399,145 @@ namespace storedProc
 		std::weak_ptr<nanodbc::result> execute(
 			const char* strAccountID, const char* strUserID, const int32_t days) noexcept(false);
 	};
+	/// \brief Donor mail unread-count probe (issue #52).
+	/// \class MailBoxCheckCount
+	/// \xrefitem dbproc_GAME "GAME Database Stored Procedures" "GAME Database Stored Procedures" MAIL_BOX_CHECK_COUNT Donor mail unread-count probe (issue #52).
+	class MailBoxCheckCount : public detail::StoredProcedure
+	{
+	public:
+		MailBoxCheckCount();
+		MailBoxCheckCount(std::shared_ptr<nanodbc::connection> conn);
+
+		/// \brief Returns the query associated with preparing this statement
+		static const std::string& Query();
+
+		/// \brief Returns the associated database type for the table
+		static modelUtil::DbType DbType();
+
+		/// \brief Executes the stored procedure
+		/// \throws nanodbc::database_error
+		std::weak_ptr<nanodbc::result> execute(
+			int* returnValue, const char* strRecipientID) noexcept(false);
+
+		/// \brief Flushes any output variables or return values on destruction
+		~MailBoxCheckCount();
+	};
+
+	/// \brief Donor mail paged list (issue #52).
+	/// \class MailBoxRequestList
+	/// \xrefitem dbproc_GAME "GAME Database Stored Procedures" "GAME Database Stored Procedures" MAIL_BOX_REQUEST_LIST Donor mail paged list (issue #52).
+	class MailBoxRequestList : public detail::StoredProcedure
+	{
+	public:
+		MailBoxRequestList();
+		MailBoxRequestList(std::shared_ptr<nanodbc::connection> conn);
+
+		/// \brief Returns the query associated with preparing this statement
+		static const std::string& Query();
+
+		/// \brief Returns the associated database type for the table
+		static modelUtil::DbType DbType();
+
+		/// \brief Executes the stored procedure
+		/// \throws nanodbc::database_error
+		std::weak_ptr<nanodbc::result> execute(
+			int* returnValue, const char* strRecipientID,
+			const uint8_t bNewLettersOnly) noexcept(false);
+
+		/// \brief Flushes any output variables or return values on destruction
+		~MailBoxRequestList();
+	};
+
+	/// \brief Donor mail send with optional enclosure (issue #52).
+	/// \class MailBoxSend
+	/// \xrefitem dbproc_GAME "GAME Database Stored Procedures" "GAME Database Stored Procedures" MAIL_BOX_SEND Donor mail send with optional enclosure (issue #52).
+	class MailBoxSend : public detail::StoredProcedure
+	{
+	public:
+		MailBoxSend();
+		MailBoxSend(std::shared_ptr<nanodbc::connection> conn);
+
+		/// \brief Returns the query associated with preparing this statement
+		static const std::string& Query();
+
+		/// \brief Returns the associated database type for the table
+		static modelUtil::DbType DbType();
+
+		/// \brief Executes the stored procedure
+		/// \throws nanodbc::database_error
+		std::weak_ptr<nanodbc::result> execute(
+			int* returnValue, const char* strSenderID, const char* strRecipientID,
+			const char* strSubject, const char* strMessage, const uint8_t bType,
+			const int32_t nItemID, const int16_t sCount, const int16_t sDurability,
+			const int64_t nSerialNum, const int64_t nUserSeal,
+			const int32_t nCoins) noexcept(false);
+
+		/// \brief Flushes any output variables or return values on destruction
+		~MailBoxSend();
+	};
+
+	/// \brief Donor mail read returning the body (issue #52).
+	/// \class MailBoxRead
+	/// \xrefitem dbproc_GAME "GAME Database Stored Procedures" "GAME Database Stored Procedures" MAIL_BOX_READ Donor mail read returning the body (issue #52).
+	class MailBoxRead : public detail::StoredProcedure
+	{
+	public:
+		MailBoxRead();
+		MailBoxRead(std::shared_ptr<nanodbc::connection> conn);
+
+		/// \brief Returns the query associated with preparing this statement
+		static const std::string& Query();
+
+		/// \brief Returns the associated database type for the table
+		static modelUtil::DbType DbType();
+
+		/// \brief Executes the stored procedure
+		/// \throws nanodbc::database_error
+		std::weak_ptr<nanodbc::result> execute(
+			const char* strRecipientID, const int32_t nLetterID) noexcept(false);
+	};
+
+	/// \brief Donor mail enclosure claim (issue #52).
+	/// \class MailBoxGetItem
+	/// \xrefitem dbproc_GAME "GAME Database Stored Procedures" "GAME Database Stored Procedures" MAIL_BOX_GET_ITEM Donor mail enclosure claim (issue #52).
+	class MailBoxGetItem : public detail::StoredProcedure
+	{
+	public:
+		MailBoxGetItem();
+		MailBoxGetItem(std::shared_ptr<nanodbc::connection> conn);
+
+		/// \brief Returns the query associated with preparing this statement
+		static const std::string& Query();
+
+		/// \brief Returns the associated database type for the table
+		static modelUtil::DbType DbType();
+
+		/// \brief Executes the stored procedure
+		/// \throws nanodbc::database_error
+		std::weak_ptr<nanodbc::result> execute(
+			const char* strRecipientID, const int32_t nLetterID) noexcept(false);
+	};
+
+	/// \brief Donor mail soft-delete (issue #52).
+	/// \class MailBoxDeleteLetter
+	/// \xrefitem dbproc_GAME "GAME Database Stored Procedures" "GAME Database Stored Procedures" MAIL_BOX_DELETE_LETTER Donor mail soft-delete (issue #52).
+	class MailBoxDeleteLetter : public detail::StoredProcedure
+	{
+	public:
+		MailBoxDeleteLetter();
+		MailBoxDeleteLetter(std::shared_ptr<nanodbc::connection> conn);
+
+		/// \brief Returns the query associated with preparing this statement
+		static const std::string& Query();
+
+		/// \brief Returns the associated database type for the table
+		static modelUtil::DbType DbType();
+
+		/// \brief Executes the stored procedure
+		/// \throws nanodbc::database_error
+		std::weak_ptr<nanodbc::result> execute(
+			const char* strRecipientID, const int32_t nLetterID) noexcept(false);
+	};
 
 	/// \brief MANUAL_TODO
 	/// \class InsertFriendList

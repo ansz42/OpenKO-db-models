@@ -614,6 +614,234 @@ namespace storedProc
 	
 		return StoredProcedure::execute();
 	}
+	MailBoxCheckCount::MailBoxCheckCount()
+		: StoredProcedure()
+	{
+	}
+
+	MailBoxCheckCount::MailBoxCheckCount(std::shared_ptr<nanodbc::connection> conn)
+		: StoredProcedure(conn)
+	{
+	}
+
+	const std::string& MailBoxCheckCount::Query()
+	{
+		static const std::string query = "{? = CALL MAIL_BOX_CHECK_COUNT(?)}";
+		return query;
+	}
+
+	modelUtil::DbType MailBoxCheckCount::DbType()
+	{
+		return modelUtil::DbType::GAME;
+	}
+
+	std::weak_ptr<nanodbc::result> MailBoxCheckCount::execute(
+			int* returnValue, const char* strRecipientID) noexcept(false)
+	{
+		prepare(Query());
+		_stmt.reset_parameters();
+
+		_stmt.bind(0, returnValue, nanodbc::statement::PARAM_RETURN);
+		_stmt.bind(1, strRecipientID);
+
+		return StoredProcedure::execute();
+	}
+
+	MailBoxCheckCount::~MailBoxCheckCount()
+	{
+		flush_on_destruct();
+	}
+
+	MailBoxRequestList::MailBoxRequestList()
+		: StoredProcedure()
+	{
+	}
+
+	MailBoxRequestList::MailBoxRequestList(std::shared_ptr<nanodbc::connection> conn)
+		: StoredProcedure(conn)
+	{
+	}
+
+	const std::string& MailBoxRequestList::Query()
+	{
+		static const std::string query = "{? = CALL MAIL_BOX_REQUEST_LIST(?,?)}";
+		return query;
+	}
+
+	modelUtil::DbType MailBoxRequestList::DbType()
+	{
+		return modelUtil::DbType::GAME;
+	}
+
+	std::weak_ptr<nanodbc::result> MailBoxRequestList::execute(
+			int* returnValue, const char* strRecipientID,
+			const uint8_t bNewLettersOnly) noexcept(false)
+	{
+		prepare(Query());
+		_stmt.reset_parameters();
+
+		_stmt.bind(0, returnValue, nanodbc::statement::PARAM_RETURN);
+		_stmt.bind(1, strRecipientID);
+		_stmt.bind(2, &bNewLettersOnly);
+
+		return StoredProcedure::execute();
+	}
+
+	MailBoxRequestList::~MailBoxRequestList()
+	{
+		flush_on_destruct();
+	}
+
+	MailBoxSend::MailBoxSend()
+		: StoredProcedure()
+	{
+	}
+
+	MailBoxSend::MailBoxSend(std::shared_ptr<nanodbc::connection> conn)
+		: StoredProcedure(conn)
+	{
+	}
+
+	const std::string& MailBoxSend::Query()
+	{
+		static const std::string query = "{? = CALL MAIL_BOX_SEND(?,?,?,?,?,?,?,?,?,?,?)}";
+		return query;
+	}
+
+	modelUtil::DbType MailBoxSend::DbType()
+	{
+		return modelUtil::DbType::GAME;
+	}
+
+	std::weak_ptr<nanodbc::result> MailBoxSend::execute(
+			int* returnValue, const char* strSenderID, const char* strRecipientID,
+			const char* strSubject, const char* strMessage, const uint8_t bType,
+			const int32_t nItemID, const int16_t sCount, const int16_t sDurability,
+			const int64_t nSerialNum, const int64_t nUserSeal,
+			const int32_t nCoins) noexcept(false)
+	{
+		prepare(Query());
+		_stmt.reset_parameters();
+
+		_stmt.bind(0, returnValue, nanodbc::statement::PARAM_RETURN);
+		_stmt.bind(1, strSenderID);
+		_stmt.bind(2, strRecipientID);
+		_stmt.bind(3, strSubject);
+		_stmt.bind(4, strMessage);
+		_stmt.bind(5, &bType);
+		_stmt.bind(6, &nItemID);
+		_stmt.bind(7, &sCount);
+		_stmt.bind(8, &sDurability);
+		_stmt.bind(9, &nSerialNum);
+		_stmt.bind(10, &nUserSeal);
+		_stmt.bind(11, &nCoins);
+
+		return StoredProcedure::execute();
+	}
+
+	MailBoxSend::~MailBoxSend()
+	{
+		flush_on_destruct();
+	}
+
+	MailBoxRead::MailBoxRead()
+		: StoredProcedure()
+	{
+	}
+
+	MailBoxRead::MailBoxRead(std::shared_ptr<nanodbc::connection> conn)
+		: StoredProcedure(conn)
+	{
+	}
+
+	const std::string& MailBoxRead::Query()
+	{
+		static const std::string query = "{CALL MAIL_BOX_READ(?,?)}";
+		return query;
+	}
+
+	modelUtil::DbType MailBoxRead::DbType()
+	{
+		return modelUtil::DbType::GAME;
+	}
+
+	std::weak_ptr<nanodbc::result> MailBoxRead::execute(
+			const char* strRecipientID, const int32_t nLetterID) noexcept(false)
+	{
+		prepare(Query());
+		_stmt.reset_parameters();
+
+		_stmt.bind(0, strRecipientID);
+		_stmt.bind(1, &nLetterID);
+
+		return StoredProcedure::execute();
+	}
+
+	MailBoxGetItem::MailBoxGetItem()
+		: StoredProcedure()
+	{
+	}
+
+	MailBoxGetItem::MailBoxGetItem(std::shared_ptr<nanodbc::connection> conn)
+		: StoredProcedure(conn)
+	{
+	}
+
+	const std::string& MailBoxGetItem::Query()
+	{
+		static const std::string query = "{CALL MAIL_BOX_GET_ITEM(?,?)}";
+		return query;
+	}
+
+	modelUtil::DbType MailBoxGetItem::DbType()
+	{
+		return modelUtil::DbType::GAME;
+	}
+
+	std::weak_ptr<nanodbc::result> MailBoxGetItem::execute(
+			const char* strRecipientID, const int32_t nLetterID) noexcept(false)
+	{
+		prepare(Query());
+		_stmt.reset_parameters();
+
+		_stmt.bind(0, strRecipientID);
+		_stmt.bind(1, &nLetterID);
+
+		return StoredProcedure::execute();
+	}
+
+	MailBoxDeleteLetter::MailBoxDeleteLetter()
+		: StoredProcedure()
+	{
+	}
+
+	MailBoxDeleteLetter::MailBoxDeleteLetter(std::shared_ptr<nanodbc::connection> conn)
+		: StoredProcedure(conn)
+	{
+	}
+
+	const std::string& MailBoxDeleteLetter::Query()
+	{
+		static const std::string query = "{CALL MAIL_BOX_DELETE_LETTER(?,?)}";
+		return query;
+	}
+
+	modelUtil::DbType MailBoxDeleteLetter::DbType()
+	{
+		return modelUtil::DbType::GAME;
+	}
+
+	std::weak_ptr<nanodbc::result> MailBoxDeleteLetter::execute(
+			const char* strRecipientID, const int32_t nLetterID) noexcept(false)
+	{
+		prepare(Query());
+		_stmt.reset_parameters();
+
+		_stmt.bind(0, strRecipientID);
+		_stmt.bind(1, &nLetterID);
+
+		return StoredProcedure::execute();
+	}
 
 	InsertFriendList::InsertFriendList()
 		: StoredProcedure()
